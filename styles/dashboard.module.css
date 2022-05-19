@@ -1,0 +1,13 @@
+.bodyWrapper{
+    display: flex;
+    width: 80vw;
+    height: 80vh;
+    margin: auto;
+    flex-flow: wrap;
+    justify-content: center;
+}
+.header{
+    width: 100%;
+    margin: auto;
+    margin-bottom: 10px;
+}
