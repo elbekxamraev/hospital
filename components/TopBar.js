@@ -1,10 +1,39 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef,useState} from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import  styles from './TopBar.module.css';
+import PatientSideBarItems from './PatientSideBarItems';
+import DispatcherSideBarItems from './DispatcherSideBarItems';
+
 export default function Topbar(props){
   const sideBarRef=useRef();
- const sideBarHandler=(event)=>{
+  const userListRef=useRef();
+  const router= useRouter();
+  const logoutHandler=()=>{
+    fetch('http://localhost:3000/api/v1/user/logout').then((res)=>{
+      setTimeout(()=>{
+        router.reload('/login');
+      },500);
+    });
+
+
+  }
+const handleUserList=()=>{
+  if(userListRef.current.style.display==='none'){
+    userListRef.current.style.display='block';
+  }
+  else{
+    userListRef.current.style.display='none';
+  }
+}
+const TransferToLoginPage=()=>{
+  router.push('/login');
+}
+const TranferToSignUpPage=()=>{
+  router.push('/signup');
+}
+ const sideBarHandler=()=>{
    if(sideBarRef.current.className.split(' ')[1]===styles.unfolded){
     sideBarRef.current.className= sideBarRef.current.className.split(' ')[0]+" " + styles.folded;
    }else{
@@ -13,18 +42,10 @@ export default function Topbar(props){
       
  }
 
-  const onAppointmentHandler=()=>{
-    props.onChangeContent('appointments');
-  }
-  const onNewAppointmentForm=()=>{
-    props.onChangeContent('newAppointmentForm')
-  }
-  const onMedicalRecords =()=>{
-    props.onChangeContent('medicalRecords')
-  }
+
     return (
         <nav className={styles["main-nav"]}>
-        <nav className={`${styles.sideNav} ${styles.folded}`} ref={sideBarRef}>
+      {props.user &&  <nav className={`${styles.sideNav} ${styles.folded}`} ref={sideBarRef}>
             
             <ul className={styles.SideNavbarList}>
             <li>
@@ -32,34 +53,19 @@ export default function Topbar(props){
                   </button>
                 </li>
                 <li>
-              <button onClick={onAppointmentHandler}><a className={styles.navLink}>
+              <Link  href={'/dashboard'} passHref={true}><a className={styles.navLink}>
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"> <path d="M0 64C0 28.65 28.65 0 64 0H224V128C224 145.7 238.3 160 256 160H384V448C384 483.3 355.3 512 320 512H64C28.65 512 0 483.3 0 448V64zM256 128V0L384 128H256z"/></svg>
                    
-                        <span>Appointments</span>
-                        </a></button>
+                        <span>Dashboard</span>
+                        </a></Link>
                 
                 </li>
-                  <li>
-                  <button onClick={onNewAppointmentForm}><a className={styles.navLink}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M480 144V384l-96 96H144C117.5 480 96 458.5 96 432v-288C96 117.5 117.5 96 144 96h288C458.5 96 480 117.5 480 144zM384 264C384 259.6 380.4 256 376 256H320V200C320 195.6 316.4 192 312 192h-48C259.6 192 256 195.6 256 200V256H200C195.6 256 192 259.6 192 264v48C192 316.4 195.6 320 200 320H256v56c0 4.375 3.625 8 8 8h48c4.375 0 8-3.625 8-8V320h56C380.4 320 384 316.4 384 312V264zM0 360v-240C0 53.83 53.83 0 120 0h240C373.3 0 384 10.75 384 24S373.3 48 360 48h-240C80.3 48 48 80.3 48 120v240C48 373.3 37.25 384 24 384S0 373.3 0 360z"/></svg>
-                   
-                        <span>Add Appointment</span>
-                        </a></button>
+                { props.user.role==='patient'? <PatientSideBarItems/> : props.user.role==='dispatcher' ? <DispatcherSideBarItems/> : ''}
           
-                  </li>
-                
-                <li>
-                    <button onClick={onMedicalRecords}><a className={styles.navLink}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M352 128C352 198.7 294.7 256 223.1 256C153.3 256 95.1 198.7 95.1 128C95.1 57.31 153.3 0 223.1 0C294.7 0 352 57.31 352 128zM287.1 362C260.4 369.1 239.1 394.2 239.1 424V448C239.1 452.2 241.7 456.3 244.7 459.3L260.7 475.3C266.9 481.6 277.1 481.6 283.3 475.3C289.6 469.1 289.6 458.9 283.3 452.7L271.1 441.4V424C271.1 406.3 286.3 392 303.1 392C321.7 392 336 406.3 336 424V441.4L324.7 452.7C318.4 458.9 318.4 469.1 324.7 475.3C330.9 481.6 341.1 481.6 347.3 475.3L363.3 459.3C366.3 456.3 368 452.2 368 448V424C368 394.2 347.6 369.1 320 362V308.8C393.5 326.7 448 392.1 448 472V480C448 497.7 433.7 512 416 512H32C14.33 512 0 497.7 0 480V472C0 393 54.53 326.7 128 308.8V370.3C104.9 377.2 88 398.6 88 424C88 454.9 113.1 480 144 480C174.9 480 200 454.9 200 424C200 398.6 183.1 377.2 160 370.3V304.2C162.7 304.1 165.3 304 168 304H280C282.7 304 285.3 304.1 288 304.2L287.1 362zM167.1 424C167.1 437.3 157.3 448 143.1 448C130.7 448 119.1 437.3 119.1 424C119.1 410.7 130.7 400 143.1 400C157.3 400 167.1 410.7 167.1 424z"/></svg>
-                    <span>
-                        Medical Recors
-                        </span>
-                </a></button>
-                </li>
-                <li>
-
-                </li>
                 
             </ul>
         </nav>
+    }
      <div className={styles["main-navWrapper"]}>
     <div className={styles["main-nav-start"]}>
      <Link className={styles.logo} href="/"><a> 
@@ -67,28 +73,44 @@ export default function Topbar(props){
      </a></Link>
 
     </div>
+    
     <div className={styles["main-nav-end"]}>
+    {props.user ?
     <div className={styles["nav-user-wrapper"]}>
+      
     <p className={styles["nav-user-name"]}>{`Hi, ${props.user.name}`}</p>
-    <button href="##" className={`${styles["nav-user-btn"]} ${styles["dropdown-btn"]}`} title="My profile" type="button">
+    <button href="##" className={`${styles["nav-user-btn"]} ${styles["dropdown-btn"]}`} onClick={handleUserList} title="My profile" type="button">
             <Image src={ props.user.image ? `http://localhost:3000/img/users/${props.user.image}`: `http://localhost:3000/user.png`} onError={() => setSrc('/user.png')}
               alt="user " width={"100%"} height={"100%"}/>
    </button>
-    <ul className={` ${styles["users-item-dropdown"]} ${styles["nav-user-dropdown dropdown"]}`}>
-          <li><Link href="/" ><a><i data-feather="user" aria-hidden="true"></i>
+    <ul className={` ${styles["users-item-dropdown"]} ${styles["nav-user-dropdown dropdown"]}`} ref={userListRef}>
+          <li><Link href="/" ><a><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"  aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
               <span>Profile</span></a></Link></li>
           <li><Link href="/"><a>
-              <i data-feather="settings" aria-hidden="true"></i>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
               <span>Account settings</span>
               </a></Link></li>
-          <li><Link className={styles["danger"]} href="/"><a>
-              <i data-feather="log-out" aria-hidden="true"></i>
+          <li><button className={"danger"}  onClick={logoutHandler}><a>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"  aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
               <span>Log out</span>
-            </a></Link></li>
+            </a></button></li>
         </ul>
+      
       </div>
+   : 
+   
+    <React.Fragment>
+      <button onClick={TransferToLoginPage} className={styles['nav-link-button']}> 
+        Login
+      </button>
+      <button onClick={TranferToSignUpPage} className={styles['nav-link-button']} style={{backgroundColor: '#2f49d1'}}>
+        SignUp
+      </button>
+    </React.Fragment>}
     </div>
+
   </div>
+    
 </nav>
     );
 }

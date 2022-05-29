@@ -1,16 +1,24 @@
 import Head from 'next/head'
 import Link from 'next/link';
-import {useRef} from 'react';
+import  {useRouter}   from 'next/router';
+import {useRef,useEffect} from 'react';
 import mainStyles from '../../styles/Home.module.css';
 import  styles from '../../styles/Login.module.css';
-export default function Login() {
+export default function Login(props) { 
+  const router =useRouter();
+  useEffect(()=>{
+    if(props.user && Object.keys(props.user).length!==0){
+      router.push('/dashboard');
+    }
+  }, [router,props.user])
+ 
   const loginInput= useRef();
   const passwordInput=useRef();
   const submitHandler= (event)=>{
     event.preventDefault();
     loginInput.current.value;
     try{
-     fetch('http://localhost:3000/api/v1/login', {
+     fetch('http://localhost:3000/api/v1/user/login', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -21,8 +29,8 @@ export default function Login() {
         password: passwordInput.current.value
       }),
     }).then((data)=>{
-      console.log("here");
-      data.json().then((obj)=>{console.log(obj)});
+      
+      data.json().then((obj)=>{router.reload('/dashboard')});
     }).catch((error)=>{
       console.log(error);
     });
@@ -46,7 +54,7 @@ export default function Login() {
         <label > Password</label>
         <input ref={passwordInput} className={styles.form_input} type="password" name="password" placeholder="Enter your password"/>
         <Link href="#" className={styles.blueLink}> Forgot password ?</Link>
-        <button className={styles.blueButton}>Submit </button> 
+        <button className='blueButton'>Submit </button> 
         </form> 
         </div>
         </div>

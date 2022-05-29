@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import styles from './NewAppointmentForm.module.css';
 import InputImage from './InputImage';
+const datesAreOnSameDay = (first, second) =>{
+   return first.getFullYear() === second.getFullYear() &&
+    first.getMonth() === second.getMonth() &&
+    first.getDate() === second.getDate();
+}
+
 const headerText= ['Tell us how you feel ', 'How often you feel that way?' , 'Tell us when you are available' ,'send us some pictures'];
 let preAppointmentInfo={}
 export default function NewAppointmentForm(props){
     const [stepNumber, setStepNumber]= useState(0);
-
-
+    const [errorMessage, setErrorMessage]=useState('');
     const submitHandler= (event)=>{
         event.preventDefault();
 
@@ -15,22 +20,53 @@ export default function NewAppointmentForm(props){
         .map((ele) => {
             return  ele.value;
         }); 
-        console.log("data", data);
+        
         switch(stepNumber) {
             case 0:
-            preAppointmentInfo.feelings= data[0];
-            setStepNumber(1);
-              break;
+              if(data[0]. trim(). split(/\s+/).length>=3){
+                preAppointmentInfo.feelings= data[0];
+                setErrorMessage('');
+                setStepNumber(1);
+                 break;
+              }else{
+                setErrorMessage('feeling should be described with at least 3 words');
+                break;    
+              }
+                  
             case 1:
+             
+              if(data[0]!=='' &&(new Date(data[0]))<=(Date.now())){
               preAppointmentInfo.startDate=data[0];
               preAppointmentInfo.repeatingTimes= data[1];
               setStepNumber(2);
+              setErrorMessage('');
               break;
-            case 2: 
-              preAppointmentInfo.avalableDate=data[0];
-              preAppointmentInfo.avalableTime= data[1];
-              preAppointmentInfo.TimeComments= data[2];
+              }
+              else{
+                setErrorMessage('start date have to be defined and can not exceed more than today');
+                break;
+              }
+            case 2:
+              data[0]=data[0]+'T00:00:00';
+            if(data[0]!=='' && (datesAreOnSameDay(new Date(data[0]),new Date(Date.now())) ||(new Date(data[0]))>=(Date.now())) && data[1]!==''){
+                preAppointmentInfo.availableDate=data[0];
+              preAppointmentInfo.availableTime= data[1];
+              preAppointmentInfo.timeComments= data[2];
+              setErrorMessage('');
               setStepNumber(3);
+              break;
+            }else{
+              let err_str='';
+              if(data[0]==='' || (!datesAreOnSameDay((new Date(data[0])),new Date(Date.now()))  && (new Date(data[0]))<(Date.now()))){
+                err_str='appointment date have to be defined and can not be in past';
+              }
+              if(data[1]===''){
+                err_str= err_str+'please choose your avalable time';
+              }
+              setErrorMessage(err_str);
+              break;
+            }
+            
           }
        
     }
@@ -45,7 +81,9 @@ export default function NewAppointmentForm(props){
         method: 'POST',
         body: data,
       }).then((res)=>{
-        console.log(res);
+        res.json().then(datas=>{
+          console.log(datas);
+        })
       });
     }
     
@@ -57,28 +95,32 @@ export default function NewAppointmentForm(props){
             {
                 stepNumber==0 ? <form  onSubmit={submitHandler}>
                     <textarea  type='text'/> 
+                    <p className='red-text'>{errorMessage}</p>
                     <button className='blueButton' type='submit'> Continue</button>
                 </form> 
                 : stepNumber==1 ?
                  <form className={styles.step_twoForm} id='stepTwoForm' onSubmit={submitHandler}>
                      <label> When did it start?</label>
-                     <input type='date' id='discomfortStartTime' />
+                     <input type='date' id='discomfortStartTime'/>
                      <label> How often does it happen?</label>
                     <select >
                      <option value="once a day" >once a day</option>
-                     <option value="twice a day">twice a day</option>
+                     <option value="many times a day">many times a day</option>
                      <option value="static ache">static ache</option>
                      <option value="some times" >some times</option>
                      <option value="other">other</option>
                     </select>
+                    <p className='red-text'>{errorMessage}</p>
                      <button className='blueButton' type='submit'> Continue</button>
                  </form>
                 : stepNumber==2? 
                 <form className={styles.step_twoForm} id='stepThreeForm' onSubmit={submitHandler}>
-                <label> When date are you available</label>
+                <label> What date are you available</label>
                 <div><input type='date' id='avalableDate'  /></div>
-                <label> When time are you available?</label>
+                <label> What time are you available?</label>
+               <div>
                <select >
+                <option value="">select</option>
                 <option value="480-660" >8am-11am</option>
                 <option value="660-840">11am-2pm</option>
                 <option value="840-1020">2pm-5pm</option>
@@ -86,8 +128,10 @@ export default function NewAppointmentForm(props){
                 <option value="anytime">anytime</option>
                 <option value="other">other</option>
                </select>
+               </div>
                <label> Comments</label>
                <input type='text' />
+               <p className='red-text'>{errorMessage}</p>
                 <button className='blueButton' type='submit'> Continue</button>
             </form> :stepNumber==3?  
                 <div className={styles.imageForm}>

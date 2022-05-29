@@ -1,8 +1,8 @@
-const mongoose= require('mongoose');
 const Patient =require('../models/Patient');
 const Appointment=require('../models/Appointment');
 const catchAsync=require('../utils/catchAsync');
 const authentication= require('./authentication');
+const User = require('../models/User');
 
 exports.createNewPatient=catchAsync(async(req,res,next)=>{
     req.newUser.patient=await Patient.create({
@@ -17,7 +17,20 @@ exports.createNewPatient=catchAsync(async(req,res,next)=>{
     await req.newUser.save();
     authentication.createSendToken(await req.newUser.populate('patient'), 200, res);
 });
+exports.searchPatientsByName=catchAsync(async (req,res,next)=>{
+    if(req.params.query===''){
+     return  res.status(200).json({
+            status: 'success',
+            patients: ''
+        });
+    }
 
+    const potential_Patiens= await User.find({ "name": { "$regex": `${req.params.query}`, "$options": "i" }, role: 'patient'}).select('name patient');
+    return res.status(200).json({
+        status: 'success',
+        patients: potential_Patiens
+    });
+}); 
 
 exports.postNewAppointment= catchAsync(async(req,res,next)=>{
 

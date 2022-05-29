@@ -61,3 +61,18 @@ exports.getDashboard=catchAsync(async (req,res,next)=>{
         appointments 
     });
 });
+exports.userInfo=catchAsync(async(req,res,next)=>{
+  let user;
+  if(req.user.role!=='dispatcher' && req.user.role!=='admin' ){
+   user= await req.user.populate(req.user.role);
+  }
+  else{
+    user=req.user;
+  }
+  console.log('user', user);
+  res.status(200).json({
+    status: 'success',
+    role: req.user.role,
+    user 
+});
+});

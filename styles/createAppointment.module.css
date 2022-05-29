@@ -1,0 +1,217 @@
+.result {
+  
+    border: 0.5px gray solid;
+    padding: 3px;
+    margin: auto;
+    width: 50%;
+     max-height: 50%;
+    overflow: scroll;
+    transition: all 1s ease;
+  }
+  .result ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+  }
+  .result ul li {
+   padding: 0;
+   border-bottom: 0.5px solid gray;
+  }
+  .result ul li:last-child{
+    border: 0;
+  }
+  .result ul button{
+    border: 0;
+    background: transparent;
+    width: 100%;
+    height: 100%;
+
+  }
+  .result ul li:hover {
+    background: #eee;
+  }
+  .chosenListWrapper h3{
+    margin: 1%;  }
+  .chosenListWrapper{
+    display: block;
+    margin: auto;
+    width: 50%;
+    height: 50%;
+    padding: 0;
+    height: 100%;
+    overflow: auto;
+  }
+  .chosenList {
+    list-style-type: none;
+    width: 100%;
+    height: 50%;
+    display: block;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid rgb(29, 29, 207);
+    padding: 0;
+    margin: 0;
+    overflow: scroll;
+  }
+  .chosenList li{
+    margin: auto;
+  
+    margin-top: 1%;
+    width: 80%;
+    height: 20%;
+    border-radius: 5px;
+    background-color: #1b72ed;
+
+  }
+  .chosenList p{
+    display: inline-block;
+    width: 80%;
+    color: white;
+    margin: 0;
+  }
+  .chosenList button{
+    display: inline-block;
+    background-color: transparent;
+    border: 0;
+    border-radius: 100%;
+    color: white;
+    font-size: 20px;
+    position: relative;
+    width: 40px;
+  }
+  .searchForm{
+  display: block;
+    width: 50%;
+    height: 50%;
+
+  }
+  .searchForm input{
+   
+  
+    width: 100%;
+    border: 0;
+  }
+  .searchForm input{
+    padding: 20px 50px;
+    height: 30px;
+    width: 50%;
+    background: white ;
+    border: 2px solid rgb(43, 113, 218) ;
+    border-radius: 10px ;
+    transition: border 0.1s ease;
+}
+.searchForm input:focus{
+    outline: none;
+    border: 2px solid blue;
+}
+.searchForm label{
+  display: block;
+  font-size: 25px;
+  font-weight: 500;
+  font-family:Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+.dateBlock{
+  display: flex;
+  width: 100%;
+  height: 80%;
+  margin: auto 1%;
+  align-items: center;
+}
+
+.dateBlock input{
+  height: 40%;
+  width: 48%;
+  margin: auto 1%;
+}
+.endForm{
+  display: flex;
+  text-align:  left;
+  width: 100%;
+  height: 30%;
+  flex-wrap: wrap;
+}
+.endForm label{
+  width: 50%;
+  height: 20%;
+  font-weight: 600;
+
+}
+.dateWrapper{
+  height: 100%;
+  width: 30%;
+  margin: 0 1%;
+  padding: 1%;
+  border: 2.5px solid rgb(43, 113, 218);
+  border-radius: 10px;
+}
+.fileBlock{
+  width: 33%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 2.5px solid rgb(43, 113, 218);
+  border-radius: 10px;
+
+}
+.fileBlock input{
+  width: 80%;
+  margin: auto;
+}
+.fileBlock h3{
+  width: 100%;
+  height: 20%;
+  margin: 3% 4%;
+  font-weight: 600;
+}
+.fileBlock input[type='file']{
+  display: none;
+}
+.fileBlock label{
+  display: flex;
+  color:white;
+  background-color: rgb(43, 113, 218);
+  border-radius: 10px;
+  border: 0;
+  width: 50%;
+  height: 40%;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  cursor: pointer;
+  transition: all 1s ease;
+}
+.fileBlock label:hover{
+  opacity: 0.5;
+}
+.submitBttn{
+  margin: 2% 3% 0 auto;
+  display: flex;
+  background-color: rgb(43, 113, 218);
+  color: white;
+  border: 0;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  width: 10%;
+  height: 20%;
+  transition: all 2s ease;
+}
+.submitBttn:hover{
+  opacity: 0.4;
+  cursor: pointer;
+}
+.mainHeader{
+  margin: 1% auto 0 2%;
+}
+.appointmentSentBlock{
+  margin: 1%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: white;
+  border: 2px solid rgb(45, 174, 45);
+  border-radius: 25px;
+  justify-content: center;
+  align-items: center;
+}

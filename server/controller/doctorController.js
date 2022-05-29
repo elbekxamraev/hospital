@@ -9,7 +9,6 @@ exports.getDoctor=catchAsync(async(req,res,next)=>{
     if(req.user.doctor == undefined){
         return next(new Error('doctor is not at this account'));
     }
-    console.log("doctor" ,req.user.doctor.toString());
     const doctor= await Doctor.findOne({_id: req.user.doctor.toString()}).populate('appointments');
     if(!doctor){
             return next(new Error('no doctor was found with this authentication'));
@@ -19,6 +18,16 @@ exports.getDoctor=catchAsync(async(req,res,next)=>{
         data: doctor
     });
 });
+exports.getAllDoctors=catchAsync(async(req,res,next)=>{
+    const doctors= await Doctor.find().select('user').populate({
+        path: 'user',
+        select: 'name'
+    });
+    res.status(200).json({
+        status: 'success',
+        data: doctors
+    })
+})
 exports.createDoctor=catchAsync(async(req,res,next)=>{
     req.newUser.doctor= await Doctor.create({
         proffesion: req.body.proffesion,

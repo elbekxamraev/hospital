@@ -6,5 +6,5 @@ router.route('/newPatient').post(authentication.signup, patientController.create
 //router.route('/sheduleAppointment').post(patientController.postNewAppointment);
 router.route('/patientsProfile/updateMetrics').patch(patientController.updateMetrics);
 router.route('/adminGetPatient').get(patientController.AdminGetPatientInfo);
-
+router.route('/searchPatientsByName/:query').get(authentication.protect,patientController.searchPatientsByName);
 module.exports=router;

@@ -42,6 +42,7 @@
     flex-direction: column;
     align-items: center;
 }
+
 .SideNavbarList li{
     width: 100%;
     padding-left: min(1vw,50px);
@@ -112,7 +113,37 @@
   }
 .users-item-dropdown{
     display: none;
+    position: absolute;
+    width: 200px;
+    height: 120px;
+    margin: 0;
+    padding: 1%;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    list-style-type: none;
+    right: 20px;
+    background-color: white;
+    border-radius: 2px;
 }
+.users-item-dropdown li{
+    border-bottom: 0.5px solid gray;
+    margin-bottom: 3%;
+    padding-bottom: 2%;
+}
+.users-item-dropdown button{
+    border: 0;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    font-size: inherit;
+    padding: 0;
+    cursor:pointer;
+}
+.users-item-dropdown li:last-child {
+    border-bottom: 0;
+    color: #f26464;
+}
+
 .nav-user-name{
     display: inline-block;
     margin-right: 5%;
@@ -157,4 +188,18 @@
     list-style-type: none;
     width: 100%;
     height: 100%;
+}
+.nav-link-button{
+    display: inline-block;
+    width: 35%;
+    height: 80%;
+
+    margin: 0 2%;
+    border: 0;
+    border-radius: 15px;
+    transition: all 1s ease;
+}
+.nav-link-button:hover{
+   opacity: 0.5;
+
 }

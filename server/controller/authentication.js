@@ -57,7 +57,9 @@ exports.protect=catchAsync(async(req,res,next)=>{
         return next( new AppError('You are not logged in! please log in to continue',403))
     }
 
-    const decoded= await promisify(jwt.verify)(token,process.env.JWT_SECRET);
+
+  
+    let decoded= await promisify(jwt.verify)(token,process.env.JWT_SECRET);
     const currentUser= await User.findOne({_id:decoded.id});
 
     if(!currentUser){
@@ -89,12 +91,19 @@ exports.logout=(req,res)=>{
         });
         res.status(200).json({ status: 'success' });
 }
-exports.onlyAdmin=catchAsync(async(req,res,next)=>{
-    if(!(req.user.role==='admin')){
-        return next( new AppError("No admin was found with this token",403));
-    }
-    next();
-});
+exports.restrictTo = (...roles) => {
+    
+    return (req, res, next) => {
+        console.log("role" ,req.user.role);
+        console.log(roles);
+      if (!roles.includes(req.user.role)) {
+        console.log("bad role");
+        return next(
+          new AppError('You do not have permission to perform this action', 403)
+        );
+      }
+      next();
+    }}
 
 module.exports.createSendToken=createSendToken;
 
