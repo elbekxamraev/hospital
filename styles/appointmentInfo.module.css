@@ -1,0 +1,243 @@
+.appointmentInfoBlock{
+    display: flex;
+    flex-direction: column;
+    height: 70%;
+    width: 30%;
+    border-radius: 10px;
+  
+}
+.filesBox{
+    list-style-type: none;
+    
+    width: 95%;
+    height: 50%;
+    overflow: scroll;
+
+    margin: 1% auto;
+}
+.headers{
+    margin: 0 auto;
+    margin-top: 5%;
+    display: block;
+    width: 95%;
+    text-align: left;
+}
+.datesBox{
+    position: relative;
+    display: block;
+  
+    width: 95%;
+    height: 20%;
+}
+.submitBttn{
+    margin: 2% 3% 0 auto;
+    display: flex;
+    background-color: rgb(43, 113, 218);
+    color: white;
+    border: 0;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    width: 10%;
+    height: 20%;
+    transition: all 2s ease;
+  }
+  .submitBttn:hover{
+    opacity: 0.4;
+    cursor: pointer;
+  }
+  .completingForm{
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      height: 90%;
+      margin: 1% auto;
+  }
+ .buttonsBlock{
+     display: block;
+     width: 50%;
+     height: 10%;
+     margin-left: auto;
+     margin-top: auto;
+ }
+ .fileUpload{
+     display: inline-block;
+     width: 40%;
+     height: 50%;
+     margin: 0;
+ }
+ .fileUpload label{
+    display: flex;
+    width: 100%;
+    height: 80%;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(11, 11, 237);
+    border-radius: 20px;
+    transition: all 1s ease;
+ }
+ .fileUpload label:hover{
+     opacity: 0.5;
+ }
+ .buttonsBlock button{
+     display: inline-block;
+     width: 40%;
+     max-width: 150px;
+     height: 70%;
+     margin: 0 2%;
+ }
+ .comments{
+     display: block;
+     width: 100%;
+     height: 30%;
+ }
+ .comments label{
+     display: block;
+     font-size: 20px;
+ }
+ .comments textarea{
+     display: block;
+     width: 100%;
+     height: 80%;
+     border-radius: 10px;
+
+ }
+ .middleWrapper{
+    display: flex;
+    width: 100%;
+    height: 40%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    justify-content: center;
+ }
+ .followUpOption{
+     display: block;
+     margin-left: 5%;
+     width: 40%;
+     height: 40%;
+     border-radius: 20px;
+     background-color: rgb(11, 11, 237);
+ }
+ .followUpOption label{
+    display: block;
+    margin: 2% 0;
+    color: white;
+    font-weight: bold;
+ }
+ .followUpOption select{
+     width: 40%;
+ }
+.appointmentInfo{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 50%;
+    margin-left: auto;
+    height: 100%;
+    padding:5px;
+}
+.listOfUsers{
+    width: 100%;
+    height: 80%;
+    padding: 0;
+    overflow: scroll;
+    display: inline-block;
+    list-style: none;
+    border-radius: 10px;
+    margin-top: auto;
+    border: 1px solid rgb(0, 72, 255);
+}
+.userInfoWrapper{
+    display: inline-block;
+    width: 45%;
+    margin: 0 2%;
+    height:100%;
+}
+.rowWrapper{
+    display: flex;
+    width: 100%;
+    height: 30%;
+}
+.pending{ 
+color: #ffb648;
+background-color: rgba(255, 173, 50, 0.472);
+
+}
+.cancelled{
+    color: #f64430;
+  background-color: rgba(255, 70, 50, 0.368);
+  }
+  .done{
+    color: #46c51c;
+  background-color: rgba(50, 255, 70, 0.418);
+  }
+  .statusWrapper{
+      display: inline-block;
+      width: 45%;
+      margin: 0 2%;
+      height: 100%;
+
+  }
+  .status{
+    display: flex;
+    border-radius: 10px;
+    width: 100%;
+    height: 80%;
+    margin-top: 1.30em;
+    justify-content: center;
+    align-items: center; 
+  }
+  .centered_info{
+    
+      padding-top: 1%;
+      width: 40%;
+      margin: auto;
+      height: 100%;
+      overflow: scroll;
+  }
+  @media screen and (max-width: 800px) {
+      .appointmentInfo{
+          flex-wrap: nowrap;
+          flex-direction: column;
+          width: 100%;
+          height: 400px;
+      }
+      .appointmentInfoBlock{
+          height: 400px;
+          width: 100%;
+      }
+      .headers{
+          height: 10%;
+      }
+      .datesBox, .filesBox{
+          height: 45%;
+      }
+      .comments textarea{
+          height: 100px;
+      }
+      .completingForm{
+          width: 100%;
+      }
+      .middleWrapper ,.buttonsBlock{
+        height: 100px;
+      }
+      .buttonsBlock button{
+          height: 50%;
+      }
+      .fileUpload , .followUpOption{
+          height: 100%;
+      }
+      .fileUpload label{
+          height: 100%;
+      }
+      .buttonsBlock{
+          height: 10%;
+      }
+      .buttonsBlock button{
+          height: 100%;
+          width: 100%;
+      }
+  }

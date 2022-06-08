@@ -122,7 +122,7 @@ export default function InputImage(props){
               if (file && file.type.substr(0, 5) === "image") {
                
                 buf.second=file;
-                console.log("buf" ,buf);
+                
                 setImages(buf);
               } else {
                 buf.second=null;

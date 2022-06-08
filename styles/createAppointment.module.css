@@ -1,14 +1,21 @@
 .result {
-  
+    z-index: 0;
+   position: absolute; 
+   left: 0; 
+   right: 0; 
+   margin: auto;
     border: 0.5px gray solid;
     padding: 3px;
     margin: auto;
-    width: 50%;
-     max-height: 50%;
+    width: 80%;
+    height: 20%;
+    background-color: white;
+  
     overflow: scroll;
     transition: all 1s ease;
   }
   .result ul {
+    
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -36,8 +43,10 @@
   .chosenListWrapper{
     display: block;
     margin: auto;
-    width: 50%;
-    height: 50%;
+    margin-top: 6%;
+    width: 80%;
+    height: 50% !important;
+    min-height: 200px;
     padding: 0;
     height: 100%;
     overflow: auto;
@@ -46,6 +55,7 @@
     list-style-type: none;
     width: 100%;
     height: 50%;
+    min-height: 150px;
     display: block;
     background-color: white;
     border-radius: 10px;
@@ -81,26 +91,24 @@
     width: 40px;
   }
   .searchForm{
-  display: block;
-    width: 50%;
-    height: 50%;
+    position: relative;
+    z-index: 3;
+    background-color: white;
+    display: block;
+    width: 32%;
 
   }
-  .searchForm input{
-   
-  
-    width: 100%;
-    border: 0;
-  }
+
   .searchForm input{
     padding: 20px 50px;
     height: 30px;
-    width: 50%;
+    width: 80%;
     background: white ;
     border: 2px solid rgb(43, 113, 218) ;
     border-radius: 10px ;
     transition: border 0.1s ease;
 }
+
 .searchForm input:focus{
     outline: none;
     border: 2px solid blue;
@@ -215,3 +223,49 @@
   justify-content: center;
   align-items: center;
 }
+.boxMargin{
+  margin: 0;
+}
+.searchBttn{
+  display: block;
+  margin: auto;
+  margin-top: 1%;
+  width: 20%;
+  border: 0;
+  color: white;
+  height: 6%;
+  border-radius: 5px;
+  background-color: rgb(43, 113, 218);
+}
+@media screen and (max-width: 800px) {
+  .searchForm{
+    width: 100%;
+    height: 50%;
+  }
+  .endForm{
+    margin-top: auto;
+    height: 50%;
+    min-height: 400px;
+    flex-wrap: nowrap;
+    flex-direction: column;
+  }
+  .dateWrapper, .fileBlock{
+    width: 80%;
+    height: 50%;
+    min-height: 150px;
+    margin: 1% auto;
+
+  } 
+  .fileBlock label{
+    width: 95%;
+    height: 50%;
+    min-height: 50px;
+  }
+  .submitBttn{
+    width: 30%;
+    min-height: 50px;
+    margin-right: 4%;
+    margin-bottom: 4%;
+  }
+
+ }

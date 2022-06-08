@@ -10,7 +10,6 @@ const userRouter= require('./server/router/userRouter');
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 require('dotenv').config({path: __dirname+'/server/config.env'});
-console.log(__dirname+'./server/config.env');
 const express= require('express');
 
 const server=express();

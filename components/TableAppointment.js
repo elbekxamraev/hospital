@@ -6,11 +6,11 @@ const patientTableHeads=['Start Date','Doctors','Patients','Start Time','End Tim
 const dispatcherTableHeads=['Patient','Feelings','Available Date','Available Time'];
 export default function TableAppointment(props){
     let trHead_content;
-    if(props.user.role==='patient'){
+    if(props.isAppointments){
         trHead_content= patientTableHeads.map((tableHead)=>{
            return (<th key={tableHead}>{tableHead}</th>);
         });
-    }else if(props.user.role==='dispatcher'){
+    }else if(!props.isAppointments){
         trHead_content= dispatcherTableHeads.map((tableHead)=>{
          return (<th key={tableHead}>{tableHead}</th>);;
         });
@@ -23,7 +23,7 @@ export default function TableAppointment(props){
                        {trHead_content}
                    </tr>
                </thead>
-             <BodyOFTableAppointment appointments={props.appointments} user={props.user}/>
+             <BodyOFTableAppointment appointments={props.appointments} isAppointments={props.isAppointments}/>
             </table>
        </div>
     );

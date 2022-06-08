@@ -1,8 +1,9 @@
 const jwt= require('jsonwebtoken');
 const catchAsync= require('../utils/catchAsync');
 const User= require('../models/User');
-const Doctor= require('../models/Doctor');
+const VerifyCode= require('../models/VerifyCode');
 const AppError = require('../utils/AppError');
+const bcrypt =require('bcrypt');
 const { promisify } = require('util');
 const createSendToken= (user,statusCode,res)=>{
     const token= jwt.sign({id: user.id},process.env.JWT_SECRET, {
@@ -19,9 +20,7 @@ const createSendToken= (user,statusCode,res)=>{
     res.status(statusCode).json({
         status: 'success',
         token,
-        data: {
-          user 
-        }
+        user 
     });
 };
 exports.signup=catchAsync(async(req,res,next)=>{
@@ -50,7 +49,7 @@ exports.protect=catchAsync(async(req,res,next)=>{
     let token;
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
         token=req.headers.authorization.split(' ')[1];
-        }else if(req.cookies && req.cookies.jwt){
+        }else if(req.cookies && req.cookies.jwt && req.cookies.jwt!=='loggedout'){
             token=req.cookies.jwt;
         }
     if(!token){
@@ -94,10 +93,8 @@ exports.logout=(req,res)=>{
 exports.restrictTo = (...roles) => {
     
     return (req, res, next) => {
-        console.log("role" ,req.user.role);
-        console.log(roles);
       if (!roles.includes(req.user.role)) {
-        console.log("bad role");
+ 
         return next(
           new AppError('You do not have permission to perform this action', 403)
         );
@@ -115,3 +112,49 @@ exports.authroizeAppointment=catchAsync(async(req,res,next)=>{
     }
     next();
 });
+exports.verifyCode= catchAsync(async(req,res,next)=>{
+    const verfiyModel= await VerifyCode.findOne({verifyNumber: req.body.verify_code});
+    if(!verfiyModel)return next(new AppError('not valid verification code',400));
+    console.log(verfiyModel);
+        const token= jwt.sign({id: verfiyModel._id},process.env.JWT_SECRET, {
+        expiresIn:  10*60*1000
+    });;
+    const cookieOptions={
+        expires: new Date(
+            Date.now()+ 10*60*1000
+        ),
+        httpOnly: true
+    };
+    res.cookie('verifyCode', token.toString(),cookieOptions);
+    res.status(200).json({
+        status: 'success'
+    })
+});
+exports.protectVerifyCode=catchAsync(async(req,res,next)=>{
+    let token;
+    if(req.cookies && req.cookies.verifyCode){
+        token=req.cookies.verifyCode;
+    }
+    if(!token){
+        return next( new AppError('You are not logged in! please log in to continue',403))
+    }
+    let decoded= await promisify(jwt.verify)(token,process.env.JWT_SECRET);
+    const currentVerify= await VerifyCode.findOneAndDelete({_id:decoded.id});
+    console.log(currentVerify);
+    if(!currentVerify){
+        return next(
+        new AppError('the verify code belonging to this token does no longer exist',403)
+        );
+    }
+
+    req.email= currentVerify.email;
+    next();
+});
+exports.setUpNewPassword= catchAsync(async (req,res,next)=>{
+    if(req.body.password<7) return next(new AppError('Password too short',400));
+    const password= await bcrypt.hash(req.body.password,12);
+    const updatedUser= await   User.findOneAndUpdate({email: req.email},{password});
+    if(!updatedUser) return next(new AppError('User not found',403));
+      updatedUser.password=undefined;
+    createSendToken(updatedUser,200,res);
+  });

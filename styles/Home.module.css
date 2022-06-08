@@ -1,10 +1,11 @@
 .container {
   padding: 0 2rem;
-  height: 100%;
+  height: auto;
   width: 100%;
   box-sizing: border-box;
   display: block;
   position: relative;
+  margin-bottom: 5%;
 }
 
 .main {
@@ -112,10 +113,132 @@
   height: 1em;
   margin-left: 0.5rem;
 }
+.introBlock{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80%;
 
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
+}
+.halfBlock{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: middle;
+  width: 50%;
+  height: 100%;
+}
+.imageFullSize{
+  display: block;
+
+}   
+
+.imageFullSize img {
+  object-fit: scale-down;
+  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%
+}
+.perfectText{
+  font-family: "Poppins", sans-serif;
+}
+.infoBarWrapper{
+  display: flex;
+  width: 80%;
+  margin: auto;
+  margin-top: 5%;
+  height: 30%;
+  padding: 1% 0;
+  color: #ffffff;
+  background-color: #56bca4;
+}
+.imageWrapper{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  border-radius: 300%;
+  background-color: white;
+  width: 30%;
+  height: 90%;
+  min-height: 80px;
+}
+
+.infoBarBlock{
+  color: white;
+  width: 33%;
+  height: 100%;
+  min-height: 120px;
+  border-right: 0.5px solid white;
+  text-align: center;
+}
+.infoBarBlock h3{
+  margin-top: 2%;
+}
+.infoBarWrapper .infoBarBlock:last-child{
+  border: 0;
+}
+.aboutHospital{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 5%;
+  width: 70%;
+  height: 50%;
+  min-height: 500px;
+  text-align: center;
+
+}
+.introBlock , .aboutHospital p{
+  font-weight: 500;
+}
+.aboutHospitalMainImage {
+  display: block;
+  width: 100%;
+  height: 80%;
+  min-height: 600px;
+}
+.aboutHospitalMainImage img {
+  object-fit: scale-down;
+  flex-shrink: 0;
+  width: 100%;
+  min-height: 600px;
+  min-width: 100%;
+  
+}
+.aboutHospitalContent{
+  margin-bottom: 10%;
+}
+.buttonWrapper{
+  margin: auto;
+  margin-top: 4%;
+  width: 20%;
+}
+@media (max-width: 800px) {
+ .infoBarWrapper{
+   flex-direction: column;
+ }
+ .infoBarBlock{
+   width: 100%;
+   margin-top: 1%;
+   border-bottom: 0.5px solid white;
+ }
+ .infoBarWrapper .infoBarBlock:last-child{
+   border: 0;
+ }
+ .aboutHospitalMainImage{
+   height: 50%;
+   min-height: 300px;
+ }
+ .aboutHospitalMainImage img{
+   min-height: 300px;
+ }
+ .buttonWrapper{
+   display: flex;
+   justify-content: center;
+   width: 50%;
+ }
 }

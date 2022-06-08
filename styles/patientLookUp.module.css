@@ -1,0 +1,92 @@
+.searchWrapper{
+    display: block;
+    width: 100%;
+    height: 30%;
+}
+.patientInfoWrapper{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 70%;
+}
+.searchInput{
+    width: 30%;
+    height: 20%;
+    border-radius: 15px;
+    margin: auto;
+    border: 1px solid rgb(0, 51, 255);
+}
+.results{
+    display: block;
+    margin: auto;
+    width: 30%;
+    margin-top: 1%;
+    height: 70%;
+    list-style-type: none;
+    padding: 0;
+    overflow: scroll;
+}
+.results button{
+    border: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    color: white;
+}
+.results li{
+    margin: 1% 0;
+    background-color: blue;
+    border-radius: 5px;
+}
+.patientContactsBlock{
+    display: block;
+
+    border-right: 1px solid blue;
+    width: 50%;
+    height: 100%;
+}
+.filesBlock{
+    width: 50%;
+    height: 100%;
+    text-align: center;
+}
+.fileList{
+    display: block;
+    height: 80%;
+    width: 100%;
+    list-style-type: none;
+    overflow: scroll;
+}
+.fileList li{
+    width: 100%;
+}
+@media screen and (max-width: 800px) {
+.searchInput{
+    width: 95%;
+    height: 30%;
+} 
+.results{
+    width: 95%;
+}
+.patientInfoWrapper{
+    align-items: baseline;
+    margin-top: 0;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.patientContactsBlock,.filesBlock{
+width: 95%;
+height: 50%;
+}
+.patientContactsBlock{
+    border: 0;
+}
+.searchWrapper{
+    height: 10%;
+}
+.fileList{
+    min-height: 200px;
+}
+   }

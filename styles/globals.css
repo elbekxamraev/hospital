@@ -18,6 +18,7 @@ body::-webkit-scrollbar-thumb{
 }
 *{
   box-sizing: border-box;
+  margin: 0;
 }
 a {
   color: inherit;
@@ -36,12 +37,8 @@ a {
   font-size: 13px;
 }
 .blueButton { 
-  position: absolute;
-  bottom: 8%;
   display: block;
   background-color: #2f49d1 !important;
-  left: 50%;
-  transform: translate(-50%, -50%);
   margin-bottom: 20px;
   
   width: 150px !important; 
@@ -60,22 +57,22 @@ a {
   width: 30%;
   height: 60%;
   margin: auto;
+  z-index: 2;
 }
 .bodyWrapper{
-  display: flex;
-  width: 80vw;
-  height: 80vh;
+  display: block;
+  width: 80%;
+  height: 100%;
   margin: auto;
-  flex-flow: wrap;
-  justify-content: center;
 }
 .white-box{
   width: 100%;
-  height: 100%;
+  height: 85%;
   display: flex;
   background-color: white;
+  overflow: scroll;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  margin: 2%;
+  margin-top: 1%;
   border-radius: 25px;
   flex-wrap: wrap;
   padding: 1%;
@@ -87,5 +84,51 @@ a {
 }
 .danger{
   color: #f26464;
+
+}
+#__next{
+  height: 100%;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.buttonSection{
+  position: absolute;
+  bottom: 0;
+  width: 90%;
+  margin:0  auto;
+  left:0;
+  right:0;
+  display: flex;
+  justify-content: center;
+}
+.centered{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+html, 
+body {
+  height: 100%;
+  width: 100%;
+
+}
+
+@media screen and (max-width: 800px) {
+ .white-box{
+   flex-wrap: nowrap;
+   flex-direction: column;
+   height: auto;
+ }
+ html, body{
+   width: 100vw;
+   min-width: 100%;
+
+   min-height: 1500px;
+ }
 
 }

@@ -1,24 +1,21 @@
-import Head from 'next/head'
+import Head from 'next/head';
 import Link from 'next/link';
 import  {useRouter}   from 'next/router';
-import {useRef,useEffect} from 'react';
+import {useRef,useState} from 'react';
 import mainStyles from '../../styles/Home.module.css';
 import  styles from '../../styles/Login.module.css';
+import { useAuth } from '../../components/context/AuthContext';
+import getConfig from 'next/config';
+const {  publicRuntimeConfig } = getConfig();
 export default function Login(props) { 
   const router =useRouter();
-  useEffect(()=>{
-    if(props.user && Object.keys(props.user).length!==0){
-      router.push('/dashboard');
-    }
-  }, [router,props.user])
- 
+  const {login,user} =useAuth();
+  const [errorMsg, setErrorMsg]= useState('');
   const loginInput= useRef();
   const passwordInput=useRef();
   const submitHandler= (event)=>{
     event.preventDefault();
-    loginInput.current.value;
-    try{
-     fetch('http://localhost:3000/api/v1/user/login', {
+     fetch(`${publicRuntimeConfig.sah}/api/v1/user/login`, {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -28,15 +25,23 @@ export default function Login(props) {
         email: loginInput.current.value,
         password: passwordInput.current.value
       }),
-    }).then((data)=>{
-      
-      data.json().then((obj)=>{router.reload('/dashboard')});
-    }).catch((error)=>{
-      console.log(error);
-    });
-  }catch(err){
-    console.log(err);
+    }).then((res)=>{
+      if(res.status===200){
+        res.json().then((dat)=>{
+          login(dat.user);
+           router.push('/dashboard');
+        });
+       
+      }else{
+        res.json().then((dat)=>{
+          setErrorMsg(dat.message);
+        })
+      }
+    })
   }
+  if(user){
+    router.push('/dashboard');
+    return (<div> </div>);
   }
   return (
     <div className={mainStyles.container}>
@@ -53,8 +58,10 @@ export default function Login(props) {
         <input ref={loginInput} className={styles.form_input} type="text" name="email" placeholder="Enter you email" /> 
         <label > Password</label>
         <input ref={passwordInput} className={styles.form_input} type="password" name="password" placeholder="Enter your password"/>
-        <Link href="#" className={styles.blueLink}> Forgot password ?</Link>
-        <button className='blueButton'>Submit </button> 
+        <Link href="/forgot-password" className={styles.blueLink}> Forgot password ?</Link>
+        <p className='danger'>{errorMsg}</p>
+        <div className='buttonSection'> <button type='submit' className='blueButton'>Submit </button> </div>
+       
         </form> 
         </div>
         </div>

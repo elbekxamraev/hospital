@@ -3,12 +3,12 @@ const mongoose=require('mongoose');
 
 
 const AppointmentShcema= mongoose.Schema({
-   doctors:[ { 
-       type: mongoose.Schema.ObjectId,
-       ref:'User',
-       required: true
-   }],
-   patients:[{ 
+    doctors:[ { 
+        type: mongoose.Schema.ObjectId,
+        ref:'User',
+        required: true
+    }],
+    patients:[{ 
        type: mongoose.Schema.ObjectId,
        ref: 'User',
        required: true
@@ -21,16 +21,23 @@ const AppointmentShcema= mongoose.Schema({
      enum: ['done','pending','started','cancelled'],
      default: 'pending'  
    },
-   documents:[ {
+   documents:{
+       type: [ {
            type: String
+           
        }],
-    drugsList: [{
-        type: String
-    }
-    ],
+       default: []
+    },
+    drugsList: {
+        type: [ {
+            type: String
+            
+        }],
+        default: []
+     },
     referenceToOtherDoctors: [{
         type: mongoose.Schema.ObjectId,
-        ref: 'Doctor'
+        ref: 'User'
     }],
     startDate: {
         type: Date,

@@ -1,13 +1,14 @@
 .NewAppointmentForm{
     position: relative;
     background-color: white;
+    margin: auto;
+    padding-top: 0.5%;
     width: 50%;
-    height: 80%;
+    height: 60%;
     border-radius: 20px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 .NewAppointmentForm form{
-    position: relative;
     width: 100%;
     height: 100%;
     text-align: center;
@@ -95,4 +96,9 @@ font-size: 18px;
     width: 30%;
     height: 60%;
     margin: auto;
+}
+@media only screen and (max-width: 800px) {
+    .NewAppointmentForm{
+        width: 100%;
+    }
 }

@@ -1,13 +1,11 @@
 .sign_up_content{
     margin: 0 auto;
     display: block;
-    position: absolute;
-    
-    width: max(500px, 20%);
-    left: 32%;
+    width: 100%;
+    min-width: 200px;
+    max-width: 500px;
     height: max(100vh,900px);
     padding: 0 5%;
-
     text-align: center;
   }
 .sign_up{
@@ -15,7 +13,7 @@
     margin: auto;
     margin-top: 5%;
     position: relative;  
-    display: block;
+  
     width: 100%;
     height: max(30%,300px);
     padding: 3% 6%;
@@ -65,6 +63,52 @@
     font-size: 14px;
     color: #5887ff;
 }
+.workDaySetUp{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 0 2%;
+  justify-content: center;
+}
+.workDaySetUp input{
+  border: 0.5px solid blue;
+  border-radius: 6px;
+  width: 100%;
+  height: 25px;
+}
+.workDaySetUp label{
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 5%;
+}
+.workDayBlock{
+  width: 30%;
+  height: 80%;
+}
+.profesionForm{
+  display: flex;
+  flex-direction: column;
+  margin-left: 2%;
+  height: 80%;
+  width: 30%;
+}
+.backBttn{
+  display: block;
+  width: 150px;
+  height: 50px;
+  margin:0 1% 25px 1%;
+  border: 0.5px solid gray;
+  border-radius: 5px;
+  background-color: white;
+}
+.submitBlock{
+  display: flex;
+  width: 100%;
+  height: 30%;
+  margin-top: auto;
+  align-items: center;
+  justify-content: center;
+}
 .sign_up_content input{
     padding: 20px 50px;
     height: 30px;
@@ -88,41 +132,31 @@
 .sign_up_content label:first-child{
     margin-top: 6%;
 }
+.timeInputWrapper{
+  display: flex;
 
+}
+.timeInputBlock{
+  margin: 0 auto;
+ width: 45%;
+ height: 30%;
+}
+.inputWrapper{
+  display: flex;
+  width: 100%;
+  height: 8%;
+}
+.form_input{
+  display: inline-block;
+  width: 75%;
+  height: 100%;
 
-.lds-ring {
-    display: inline-block;
-    position: absolute;
-    width: 80px;
-    height: 80px;
-  }
-  .lds-ring div {
-    box-sizing: border-box;
-    display: block;
-    position: absolute;
-    width: 64px;
-    height: 64px;
-    margin: 8px;
-    border: 8px solid #fff;
-    border-radius: 50%;
-    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: #fff transparent transparent transparent;
-  }
-  .lds-ring div:nth-child(1) {
-    animation-delay: -0.45s;
-  }
-  .lds-ring div:nth-child(2) {
-    animation-delay: -0.3s;
-  }
-  .lds-ring div:nth-child(3) {
-    animation-delay: -0.15s;
-  }
-  @keyframes lds-ring {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  
+}
+.additionalInputInfo{
+  display: flex;
+  width: 22%;
+  margin-left: 2% ;
+  line-height: 100%;
+  justify-content: center;
+  align-items: center;
+}

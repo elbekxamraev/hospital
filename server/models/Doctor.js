@@ -25,12 +25,18 @@ vocationTime:{
     endDate: Date
 }
 ,
-ratingsAverage: {
+ pendingAppointments:{
+     type: Number,
+     default: 0 
+ },
+ closedAppointments:{
     type: Number,
-    min: [1, 'Rating must be above 1.0'],
-    max: [5, 'Rating must be below 5.0'],
-    set: val=>Math.round(val*10)/10
-  },
+    default: 0
+},
+ cancelledAppointments: {
+    type: Number,
+    default: 0
+},
   user: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',

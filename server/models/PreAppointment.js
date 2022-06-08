@@ -1,4 +1,5 @@
 const mongoose =require('mongoose');
+const User = require('./User');
 
 
 
@@ -14,18 +15,26 @@ const PreAppointmentSchema = mongoose.Schema({
     },
     availableDate: {
         type: Date,
-        required: true,
+    
     },
     availableTime: {
         type: String,
-        required: true
+       
     },
     startDate:Date,
     repeatingTimes:String,
     timeComments: String,
+    followUpAppointmentId:{
+        type: mongoose.Schema.ObjectId,
+        ref: 'Appointment'
+    },
     images: [
         {type :String}
-    ]
+    ],
+    doctor: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+    }
 });
 
 

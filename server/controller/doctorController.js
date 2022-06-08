@@ -1,5 +1,6 @@
 
 const Doctor= require('../models/Doctor');
+const Appointment =require('../models/Appointment');
 const catchAsync = require('../utils/catchAsync');
 
 
@@ -19,9 +20,9 @@ exports.getDoctor=catchAsync(async(req,res,next)=>{
     });
 });
 exports.getAllDoctors=catchAsync(async(req,res,next)=>{
-    const doctors= await Doctor.find().select('user').populate({
+    const doctors= await Doctor.find().populate({
         path: 'user',
-        select: 'name'
+        select: 'name dateOfB'
     });
     res.status(200).json({
         status: 'success',
@@ -33,8 +34,7 @@ exports.createDoctor=catchAsync(async(req,res,next)=>{
         proffesion: req.body.proffesion,
         degree: req.body.degree,
         workingHours: req.body.workingHours,
-        user: req.newUser.id
-
+        user: req.newUser.id,
     });
         await req.newUser.save();
     res.status(200).json({

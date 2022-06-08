@@ -4,9 +4,12 @@
     background-color: white;
     position: sticky;
     display: block;
-    
+    z-index: 99;
 }
 .arrowBttn{
+    position: absolute;
+    width: 10%;
+    height: 10%;
     padding: 0;
     background: transparent;
     border: 0;
@@ -23,7 +26,8 @@
     height: 100%;
     width: 300px;
     overflow: hidden;
-    z-index: 2;
+    margin-right: 1%;
+    z-index: 100;
     transition: all 0.3s linear;
 }
 .unfolded{
@@ -34,9 +38,11 @@
 }
 .SideNavbarList{
     list-style-type: none;
+    position: relative;
     height: 100vh;
-    width: 30vw;
+    min-width: 300px;
     padding: 2px;
+    margin-right: 4%;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -94,16 +100,20 @@
     padding: 1px;
 }
 .main-nav-end{
-    display: block;
-    width: 25%;
+    display: flex;
+    width: 80%;
     height: 100%;
-    padding: 0.5%;
 }
 .nav-user-wrapper{
-    display: block;
+    
+    display: flex;
     height: 100%;
-    width: 100%;
-    margin: 0;
+    margin-left: auto;
+    justify-content: center;
+    align-items: center;
+}
+.arrowBttnOut{
+    display: none;
 }
 .nav-user-wrapper:before {
     content: "";
@@ -113,16 +123,16 @@
   }
 .users-item-dropdown{
     display: none;
-    position: absolute;
+   position: absolute;
     width: 200px;
-    height: 120px;
-    margin: 0;
+    height: 90px;
     padding: 1%;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
     list-style-type: none;
     right: 20px;
     background-color: white;
     border-radius: 2px;
+    bottom: -95px;
 }
 .users-item-dropdown li{
     border-bottom: 0.5px solid gray;
@@ -146,22 +156,23 @@
 
 .nav-user-name{
     display: inline-block;
-    margin-right: 5%;
+    min-width: 200px;
     font-size: 20px;
+    margin-right: 2%;
     font-weight: bold;
     vertical-align: middle;
 }
 
 .nav-user-btn{
+    position: relative;
     display: inline-block;
     vertical-align: middle;
     height: 50px;
     width: 50px;
     padding: 0;
     border-radius: 50%;
-    border: 0.2px gray solid;
+   border: 0;
     background-color: transparent;
-    margin: 0;
 }
 .nav-user-btn img{
     vertical-align: middle;
@@ -192,8 +203,8 @@
 .nav-link-button{
     display: inline-block;
     width: 35%;
-    height: 80%;
-
+    height: 50%;
+    min-width: 80px;
     margin: 0 2%;
     border: 0;
     border-radius: 15px;
@@ -203,3 +214,31 @@
    opacity: 0.5;
 
 }
+
+@media screen and (max-width: 800px) {
+    .main-nav-end{
+        width: 50%;
+    }
+    .nav-link-button{
+        width: 45%;
+    }
+    .nav-user-name{
+        display: none;
+    }
+    .arrowBttnOut{
+        display: block;
+        border: 0;
+        bottom: 20px;
+        position: absolute;
+        width: 35px;
+        height: 35px;
+        min-width: 35px;
+        background-color: white;
+    }
+    .folded{
+        width: 0;
+    }
+    .main-nav{
+        width: 100%;
+    }
+  }

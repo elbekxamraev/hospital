@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import styles from './NewAppointmentForm.module.css';
 import InputImage from './InputImage';
+import {useRouter} from 'next/router';
+import getConfig from 'next/config';
+const {  publicRuntimeConfig } = getConfig();
 const datesAreOnSameDay = (first, second) =>{
    return first.getFullYear() === second.getFullYear() &&
     first.getMonth() === second.getMonth() &&
@@ -10,8 +13,10 @@ const datesAreOnSameDay = (first, second) =>{
 const headerText= ['Tell us how you feel ', 'How often you feel that way?' , 'Tell us when you are available' ,'send us some pictures'];
 let preAppointmentInfo={}
 export default function NewAppointmentForm(props){
+    const router=useRouter();
     const [stepNumber, setStepNumber]= useState(0);
     const [errorMessage, setErrorMessage]=useState('');
+    const [isDone,setIsDone]=useState(false);
     const submitHandler= (event)=>{
         event.preventDefault();
 
@@ -77,16 +82,25 @@ export default function NewAppointmentForm(props){
       }
     
       data.append ( 'preAppointmentInfo',JSON.stringify(preAppointmentInfo));
-      fetch('http://localhost:3000/api/v1/user/requestAppointment', {
+      fetch(`${publicRuntimeConfig.sah}/api/v1/user/requestAppointment`, {
         method: 'POST',
         body: data,
       }).then((res)=>{
-        res.json().then(datas=>{
-          console.log(datas);
+        res.json().then(dat=>{
+          if(res.status===200){
+            setIsDone(true);
+            setTimeout(()=>{
+            router.push('/dashboard');
+            },2000);
+          }else{
+            setErrorMessage(dat.message);
+          }
         })
       });
     }
-    
+      if(isDone){
+    return(<React.Fragment><h1>Congratulation</h1><div className='white-box' style={{border: '1px solid green'}}><h1>Submited successfully</h1></div></React.Fragment>)
+      }
     return (
         <React.Fragment>
         <h1 className={styles.headerText}>{headerText[stepNumber]}</h1>
@@ -96,7 +110,10 @@ export default function NewAppointmentForm(props){
                 stepNumber==0 ? <form  onSubmit={submitHandler}>
                     <textarea  type='text'/> 
                     <p className='red-text'>{errorMessage}</p>
-                    <button className='blueButton' type='submit'> Continue</button>
+                    <div className='buttonSection'>
+                      <button className='blueButton' type='submit'> Continue</button>
+                    </div>
+                    
                 </form> 
                 : stepNumber==1 ?
                  <form className={styles.step_twoForm} id='stepTwoForm' onSubmit={submitHandler}>
@@ -111,7 +128,7 @@ export default function NewAppointmentForm(props){
                      <option value="other">other</option>
                     </select>
                     <p className='red-text'>{errorMessage}</p>
-                     <button className='blueButton' type='submit'> Continue</button>
+                    <div className='buttonSection'><button className='blueButton' type='submit'> Continue</button></div>
                  </form>
                 : stepNumber==2? 
                 <form className={styles.step_twoForm} id='stepThreeForm' onSubmit={submitHandler}>
@@ -132,7 +149,7 @@ export default function NewAppointmentForm(props){
                <label> Comments</label>
                <input type='text' />
                <p className='red-text'>{errorMessage}</p>
-                <button className='blueButton' type='submit'> Continue</button>
+                <div className='buttonSection'><button className='blueButton' type='submit'> Continue</button></div>
             </form> :stepNumber==3?  
                 <div className={styles.imageForm}>
                      

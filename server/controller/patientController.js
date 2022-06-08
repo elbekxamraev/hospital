@@ -3,6 +3,7 @@ const Appointment=require('../models/Appointment');
 const catchAsync=require('../utils/catchAsync');
 const authentication= require('./authentication');
 const User = require('../models/User');
+const AppError = require('../utils/AppError');
 
 exports.createNewPatient=catchAsync(async(req,res,next)=>{
     req.newUser.patient=await Patient.create({
@@ -15,13 +16,13 @@ exports.createNewPatient=catchAsync(async(req,res,next)=>{
         user:  req.newUser.id
     });
     await req.newUser.save();
-    authentication.createSendToken(await req.newUser.populate('patient'), 200, res);
+    authentication.createSendToken(req.newUser, 200, res);
 });
 exports.searchPatientsByName=catchAsync(async (req,res,next)=>{
     if(req.params.query===''){
      return  res.status(200).json({
             status: 'success',
-            patients: ''
+            patients: []
         });
     }
 
@@ -31,7 +32,19 @@ exports.searchPatientsByName=catchAsync(async (req,res,next)=>{
         patients: potential_Patiens
     });
 }); 
+exports.getPatientInfo=catchAsync(async (req,res,next)=>{
 
+    if(!req.params.patientId || req.params.patientId.length!==24) return next(new AppError('bad request query',400)); 
+    const patient= await User.findOne({_id: req.params.patientId}).populate('patient').select('-password -active -__v');
+    if(!patient) return next(new AppError('Patient not found',404));
+    const appointments= await Appointment.find({ _id: { $in: patient.appointments }}).populate({path: 'doctors', select: 'name'}).populate({path: 'patients',select: 'name'});
+    patient.appointments=appointments;
+    console.log(patient);
+    return res.status(200).json({
+        status: 'success',
+        patient
+    });
+}); 
 exports.postNewAppointment= catchAsync(async(req,res,next)=>{
 
     const appointment= await Appointment.create(req.body);

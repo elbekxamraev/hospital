@@ -73,3 +73,13 @@ background-color: rgba(50, 255, 70, 0.1);
   text-align: center;
   margin: auto;
 }
+.oversizeTableCell{
+  width: 20%;
+  height: 5%;
+  overflow: scroll;
+}
+@media screen and (max-width: 800px) {
+  .tableWrapper{
+    height: auto;
+  }
+}
