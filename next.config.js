@@ -7,7 +7,7 @@ module.exports = {
    sah: `${process.env.PROTOCOLTYPE}://${process.env.HOSTNAME}:${process.env.PORT}`
   },
   images: {
-    domains: [process.env.HOSTNAME],
+    domains: [`${process.env.HOSTNAME}`],
     writeToCacheDir: false }
   } 
 
