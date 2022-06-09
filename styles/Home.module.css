@@ -129,10 +129,6 @@
   width: 50%;
   height: 100%;
 }
-.imageFullSize{
-  display: block;
-
-}   
 
 .imageFullSize img {
   object-fit: scale-down;
@@ -210,24 +206,37 @@
   
 }
 .aboutHospitalContent{
+  display: block;
   margin-bottom: 10%;
 }
 .buttonWrapper{
+  display: flex;
   margin: auto;
   margin-top: 4%;
-  width: 20%;
+  justify-content: center;
+  width: 50%;
 }
 @media (max-width: 800px) {
+  .introBlock{
+    flex-direction: column;
+    margin-bottom: 100px;
+  }
  .infoBarWrapper{
    flex-direction: column;
+   width: 100%;
  }
+
+
  .infoBarBlock{
    width: 100%;
-   margin-top: 1%;
-   border-bottom: 0.5px solid white;
+   margin-top: 2%;
+   border-bottom: 2px solid white;
  }
  .infoBarWrapper .infoBarBlock:last-child{
    border: 0;
+ }
+ .aboutHospital{
+   width: 95%;
  }
  .aboutHospitalMainImage{
    height: 50%;
@@ -236,9 +245,16 @@
  .aboutHospitalMainImage img{
    min-height: 300px;
  }
+ .halfBlock{
+   width: 100%;
+ }
+ .aboutHospitalContent{
+   width: 100%;
+ }
  .buttonWrapper{
    display: flex;
    justify-content: center;
    width: 50%;
  }
 }
+
