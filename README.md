@@ -1,34 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Hospital App
 
-## Getting Started
 
-First, run the development server:
+Hospital app was made to help medical offices and hospitals to manage appointments and requests from their patients. 
 
-```bash
-npm run dev
-# or
-yarn dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Doctors can manage appointments and upload files and make possible to patients' to see uploaded documents and comments from doctors.
+Login: doctor@example.com
+Password: 12345678
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+There dispatchers can manage cancelled appointments and create appointments based on patients' requests for appointment(Pre-appointments).
+Login: dispatcher@example.com
+Password: 12345678
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Admin of the app can see doctors' perfomance and appointments which was clossed , cancelled or pendding . Admin can sign up new doctors
+Login: xamraevelbek@gmail.com
+Password: 12345678
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Patient for example: 
+Login: abdulaevibrohim@example.com
+Password: 12345678
 
-## Learn More
+You can sign up your self and be patients in this app
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
